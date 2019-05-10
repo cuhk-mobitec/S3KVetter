@@ -1,0 +1,8 @@
+{
+  "smt": {
+    "declare": [
+      "(declare-const fbsr_156258847901639 String)",
+      "(declare-const value String)"
+    ]
+  }
+}

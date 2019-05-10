@@ -1,0 +1,40 @@
+language: python
+python:
+  - 3.5
+sudo: false
+cache:
+  pip: true
+install:
+- |
+      if [ "$TOXENV" = "pypy" ]; then
+        export PYENV_ROOT="$HOME/.pyenv"
+        if [ -f "$PYENV_ROOT/bin/pyenv" ]; then
+          cd "$PYENV_ROOT" && git pull
+        else
+          rm -rf "$PYENV_ROOT" && git clone --depth 1 https://github.com/yyuu/pyenv.git "$PYENV_ROOT"
+        fi
+        export PYPY_VERSION="5.3"
+        "$PYENV_ROOT/bin/pyenv" install "pypy-$PYPY_VERSION"
+        virtualenv --python="$PYENV_ROOT/versions/pypy-$PYPY_VERSION/bin/python" "$HOME/virtualenvs/pypy-$PYPY_VERSION"
+        source "$HOME/virtualenvs/pypy-$PYPY_VERSION/bin/activate"
+      fi
+- pip install 'tox>=1.9' coveralls
+
+script:
+- tox
+env:
+- TOXENV=py27
+- TOXENV=py34
+- TOXENV=py35
+- TOXENV=pypy
+after_success: coveralls
+notifications:
+  irc: irc.freenode.org#oauthlib
+deploy:
+  provider: pypi
+  user: ib.lundgren
+  password:
+    secure: PGZF9pRiTGCSwQjk1ddTKF3x4rQ0iAiPbg2uSixyO68uMXRgJjwHhSrNM0OEqtK5YWU5FE5L0DwR1nkrpEJKO4a5q2EOgos+gVoKpJfinoUNOOkjc1VHpqKM0uRf/OKrw1alvWUwqvW8B+DOb9TY5c5VZxQuRL+iwdrtwzFlKls=
+  on:
+    tags: true
+    repo: idan/oauthlib

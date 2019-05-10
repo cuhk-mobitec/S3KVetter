@@ -1,0 +1,17 @@
+{
+  "smt": {
+    "declare": [
+      "(declare-const fbsr_156258847901639 String)",
+      "(declare-const value String)",
+      "(declare-const state String)",
+      "(declare-const access_token.uid String)"
+    ]
+  },
+  "complexfunc": {
+    "module": "hashlib",
+    "api": "hashlib.md5",
+    "property": "hexdigest",
+    "symbolicvar": "v",
+    "symbolicvarVal": ["mini"]
+  }
+}

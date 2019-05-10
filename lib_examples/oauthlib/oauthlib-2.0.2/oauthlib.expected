@@ -1,0 +1,12 @@
+;Access Token Injection
+(=> (= code "wrongcodeval") (= returnVal.token "None"))
+;Refresh Token Injection
+(=> (= code "wrongcodeval") (= returnVal.refresh_token "None"))
+;Use before assignment state
+(=> (= Req0Flag 0) (= returnVal.token "None"))
+;Bypass Mac_key protection
+(=> (= code "wrongcodeval") (not (= returnVal.mac_key "abcdef")))
+;HTTPS Check
+(=> (= isHttps 0) (= returnVal.token "None"))
+;Misuse or no use of state
+(=> (= useState 0) (= returnVal.token "None"))

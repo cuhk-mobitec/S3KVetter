@@ -1,0 +1,17 @@
+sudo: false
+language: python
+cache: pip
+python:
+  - 2.7
+  - 3.3
+  - 3.4
+  - 3.5
+  - 3.6
+install:
+  - pip install -r requirements.txt
+  - pip install requests-mock
+  - pip install coveralls
+script:
+  - coverage run --source=requests_oauthlib -m nose
+after_success:
+  - coveralls

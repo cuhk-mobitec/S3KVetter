@@ -1,0 +1,6 @@
+;Access Token Injection
+(=> (= returnVal.code "None") (= returnVal.token "None"))
+;HTTPS Check
+(=> (= isHttps 0) (= returnVal.token "None"))
+;Misuse or no use of state
+(=> (= returnVal.hasState 0) (= returnVal.token "None"))
