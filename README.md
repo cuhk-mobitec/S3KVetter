@@ -13,13 +13,13 @@ If you are using this work, please cite the following paper:
 >  year={2018}
 >}
 
-###Prerequisites  
+### Prerequisites  
 
 Please follow the instructions in https://github.com/thomasjball/PyExZ3 to setup the environment. Notice that we only support CVC4 as the theorem prover. 
 
 If you are using Mac or Ubuntu, you can follow platform-specific instructions for [Ubuntu](https://github.com/cuhk-mobitec/S3KVetter/blob/master/setup%20notes/ubuntu.sh) and [Mac OS 10.14](https://github.com/cuhk-mobitec/S3KVetter/blob/master/setup%20notes/MacOS.sh).
 
-###Usage
+### Usage
 
 After configuring the environment, run the following code to check if the environment is cnofigured correctly.
 
