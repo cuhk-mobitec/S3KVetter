@@ -1,0 +1,65 @@
+{
+  "smt": {
+    "declare": [
+      "(declare-const fbsr_156258847901639 String)",
+      "(declare-const value String)",
+      "(declare-const state String)",
+      "(declare-const access_token.uid String)"
+    ]
+  },
+  "complexfunc": {
+    "module": "hashlib",
+    "api": "hashlib.md5",
+    "property": "hexdigest",
+    "symbolicvar": "v",
+    "symbolicvarVal": ["mini"]
+  },
+  "hookedFunc": [
+    {
+      "module": "alipay",
+      "class": "AliPay",
+      "api": "AliPay.verify_and_return_sync_response1",
+      "location": [
+        "returnVal",
+        0
+      ],
+      "symbolicvar": [
+        "app_id2",
+        "seller_id2",
+        "out_trade_no2",
+        "trade_no2",
+        "total_amount2"
+      ],
+      "replacedvar": [
+        "app_id",
+        "seller_id",
+        "out_trade_no",
+        "trade_no",
+        "total_amount"
+      ]
+    },
+    {
+      "module": "alipay",
+      "class": "AliPay",
+      "api": "AliPay.verify",
+      "location": [
+        "args",
+        1
+      ],
+      "symbolicvar": [
+        "app_id3",
+        "seller_id3",
+        "out_trade_no3",
+        "trade_no3",
+        "total_amount3"
+      ],
+      "replacedvar": [
+        "app_id",
+        "seller_id",
+        "out_trade_no",
+        "trade_no",
+        "total_amount"
+      ]
+    }    
+  ]
+}

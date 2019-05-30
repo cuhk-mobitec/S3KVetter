@@ -1,0 +1,5 @@
+(=> (and (or (= sequential_notfied 1) (= active_query 1)) (not (= total_fee1 20))) (= returnVal 0))
+(=> (and (or (= sequential_notfied 1) (= active_query 1)) (not (= total_fee2 20))) (= returnVal 0))
+(=> (and (or (= sequential_notfied 1) (= active_query 1)) (not (= app_id2 "wxd678efh567hg6787"))) (= returnVal 0))
+(=> (and (or (= sequential_notfied 1) (= active_query 1)) (not (= mch_id2 "1230000109"))) (= returnVal 0))
+(=> (and (or (= sequential_notfied 1) (= active_query 1)) (not (= out_trade_no2 "1409811653"))) (= returnVal 0))

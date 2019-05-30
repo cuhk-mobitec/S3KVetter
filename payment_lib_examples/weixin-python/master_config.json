@@ -1,0 +1,58 @@
+{
+  "smt": {
+    "declare": [
+      "(declare-const fbsr_156258847901639 String)",
+      "(declare-const value String)",
+      "(declare-const state String)",
+      "(declare-const access_token.uid String)"
+    ]
+  },
+  "hookedFunc": [
+    {
+      "module": "weixin.pay",
+      "class": "WeixinPay",
+      "api": "WeixinPay.check",
+      "location": [
+        "args",
+        1
+      ],
+      "symbolicvar": [
+        "app_id2",
+        "mch_id2",
+        "out_trade_no2",
+        "transaction_id2",
+        "total_fee2"
+      ],
+      "replacedvar": [
+        "appid",
+        "mch_id",
+        "out_trade_no",
+        "transaction_id",
+        "total_fee"
+      ]
+    },
+    {
+      "module": "wx_utils",
+      "class": "wx_server",
+      "api": "wx_server.order_query",
+      "location": [
+        "returnVal",
+        0
+      ],
+      "symbolicvar": [
+        "app_id2",
+        "mch_id2",
+        "out_trade_no2",
+        "transaction_id2",
+        "total_fee2"
+      ],
+      "replacedvar": [
+        "appid",
+        "mch_id",
+        "out_trade_no",
+        "transaction_id",
+        "total_fee"
+      ]
+    }    
+  ]
+}
