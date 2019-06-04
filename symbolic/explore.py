@@ -54,7 +54,63 @@ class ExplorationEngine:
 		self.configPath = configPath
 		self.exploreDone = False
 		if configPath and os.path.isfile(configPath):
-			self.hookComplexFuncs(configPath)
+			self.hookFuncs(configPath)
+
+	def hookFuncs(self, configPath):
+		with open(configPath) as f:
+			configJson = json.load(f)
+			for item in configJson['hookedFunc']:
+				module = item['module']
+				className = item['class']
+				api = item['api']
+				location = item['location']
+				symbolicvar = item['symbolicvar']
+				replacedvar = item['replacedvar']
+				if (len(symbolicvar) != len(replacedvar)) or (location[0] != 'args' and location[0] != 'kwargs' and location[0] != 'returnVal'):
+					print('Incorrect configuration parameters!')
+				if item['class'] == '':
+					code  = "import %s\n" % module
+				else:
+					code  = "from %s import %s\n" % (module, className)
+
+				code += "%s = self.processhookFuncs(%s, %s, %s, %s)" % (api, api, location, symbolicvar,replacedvar)
+				exec(code)
+			return
+    	
+		#import hashlib
+		#hashlib.sha256 = self._hookComplexFuncs(hashlib.sha256, self.gethookPaths, 'hexdigest', 'in2')
+		#return
+
+	def processhookFuncs(self, function, location, symbolicvar, replacedvar):
+		@functools.wraps(function)
+		def run(*args, **kwargs):
+			returnVal = function(*args, **kwargs)
+			if location[0] == 'args':
+				target = tuple(args)[location[1]]
+			elif location[0] == 'kwargs':
+				target = kwargs[location[1]]
+			elif location[0] == 'returnVal':
+				if isinstance(returnVal, tuple):
+					target = copy.deepcopy(returnVal[location[1]])
+				else:
+					target = copy.deepcopy(returnVal)
+
+			for index in range(len(replacedvar)):
+				try:
+					if isinstance(target, dict):
+						target[replacedvar[index]] = dict(self.symbolic_inputs)[symbolicvar[index]] 
+					elif replacedvar[index] in dir(target):
+						setattr(target, replacedvar[index], dict(self.symbolic_inputs)[symbolicvar[index]])
+					else:
+						print('Replaced parameter ' + replacedvar[index] + ' not found!')
+				except:
+					print('Replaced parameter ' + replacedvar[index] + ' not found!')
+			
+			if location[0] == 'returnVal':
+				return target
+			else:
+				return returnVal
+		return run
 
 	def hookComplexFuncs(self, configPath):
 		with open(configPath) as f:
@@ -531,4 +587,3 @@ class ExplorationEngine:
 				print(colored('\n'.join(callTrace), 'green'))
 			elif userChoice in ['1', '2', '4', '5']:
 				return userChoice
-
